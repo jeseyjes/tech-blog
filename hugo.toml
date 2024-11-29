@@ -3,7 +3,7 @@ baseURL = "https://yourdomain.com"
 defaultContentLanguage = "en"
 # language code
 languageCode = "en"
-title = "NAME_OF_YOUR_BLOG"
+title = "TechIt with Jessica"
 
 # Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
@@ -68,7 +68,7 @@ theme = "LoveIt"
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
         name = ""
-        url = "https://yourgithuburl"
+        url = "https://github.com/jeseyjes"
         title = "GitHub"
         weight = 5
 
@@ -142,7 +142,7 @@ theme = "LoveIt"
       # URL of the LOGO
       logo = ""
       # title name
-      name = "NAME_OF_YOUR_BLOG"
+      name = "TECHIT WITH JESSICA"
       # you can add extra information before the name (HTML format is supported), such as icons
       pre = ""
       # you can add extra information after the name (HTML format is supported), such as icons
@@ -196,9 +196,9 @@ theme = "LoveIt"
       # Gravatar Email for preferred avatar in home page
       gravatarEmail = ""
       # URL of avatar shown in home page (LINK_TO_YOUR_PHOTO_BELOW)
-      avatarURL = "https://avatars.githubusercontent.com/u/7815661?v=4"
+      avatarURL = "https://github.com/jeseyjes/ProfileAssets/blob/main/IMG_20241128_100232.jpg?raw=true"
       #  title shown in home page (HTML format is supported)
-      title = "NAME_OF_YOUR_BLOG"
+      title = "TechIt with Jessica"
       # subtitle shown in home page
       subtitle = "My AWS DevOps Engineering Journey"
       # whether to use typeit animation for subtitle
@@ -220,7 +220,7 @@ theme = "LoveIt"
   [params.social]
     Bitbucket = ""
     GitHub = ""
-    Linkedin = "YOUR_LINKEDIN_LINK"
+    LinkedIn = "https://www.linkedin.com/in/jessica-thuo/"
     Twitter = ""
     Gitlab = ""
     Email = ""
@@ -511,7 +511,7 @@ theme = "LoveIt"
 
 # Author config
 [author]
-  name = "YOUR_NAME"
+  name = "Jessica"
   email = ""
   link = ""
 
