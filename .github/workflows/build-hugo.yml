@@ -29,6 +29,11 @@ jobs:
       - name: Build the site
         run: hugo
 
+      - name: List contents of public folder
+        run: ls -l public/
+
+
+
       # Optional: Save the build output (for debugging)
       - name: Upload public folder
         uses: actions/upload-artifact@v4
