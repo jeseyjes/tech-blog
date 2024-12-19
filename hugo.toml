@@ -50,7 +50,7 @@ theme = "LoveIt"
       [[languages.en.menu.main]]
         identifier = "categories"
         pre = ""
-        post = ""
+        post =  ""
         name = "Categories"
         url = "/categories/"
         title = ""
