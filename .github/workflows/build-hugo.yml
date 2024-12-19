@@ -41,6 +41,9 @@ jobs:
           name: tech-blog
           path: public/*
 
+      - name: Wait for artifact to be available
+        run: sleep 30  # Wait for 30 seconds before proceeding
+
   deploy:
     name: Publish
     needs: build  # This job depends on the successful completion of 'build'
