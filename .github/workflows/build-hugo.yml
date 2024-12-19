@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+env:
+  AWS_REGION: "eu-west-2" #s3 bucket region
+
 
 jobs:
   build:
@@ -12,12 +15,12 @@ jobs:
 
     steps:
       # Step 1: Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       # Step 2: Install Hugo
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true  # Use extended version if your blog uses SCSS
@@ -28,7 +31,41 @@ jobs:
 
       # Optional: Save the build output (for debugging)
       - name: Upload public folder
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: hugo-build
-          path: public/
+          name: tech-blog
+          path: public/*
+          
+deploy_job:
+    - name: Publish
+      needs: [build_job]
+      runs-on: ubuntu-latest
+      permissions:
+        id-token: write 
+        contents: read
+
+        steps:
+    -   name: Download public folder
+        uses: actions/ downloads-artifact@v4
+        with: 
+          name: tech-blog
+          
+
+    -  name: Configure AWS credentials 
+       uses: aws-actions/configure-aws-credentials@v4
+       with:
+         role-to-assume: ${{secrets.GitHubActionsRole}}
+         aws-region: ${{env.eu-west-2}}
+
+    -  name: S3 sync 
+       run: | 
+         aws s3 sync . s3:${{secrets.techitblog}} \
+         -- delete
+
+    -  name: Create CloudFront Invalidation
+       run: |
+         aws cloudfront create-invalidation \
+         --distribution-id ${{vars.DISTRIBUTION_ID}} \
+         --paths "/*"
+        
+ 
