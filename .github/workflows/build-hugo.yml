@@ -68,7 +68,7 @@ jobs:
       # Step 3: Sync files from the 'public/' folder to the S3 bucket
       - name: S3 sync
         run: | 
-          aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }} \
+          aws s3 sync . s3://${{ secrets.BUCKET_NAME }} \
           --delete  
 
       # Step 4: Create a CloudFront invalidation to clear cached files
