@@ -41,8 +41,7 @@ jobs:
           name: tech-blog
           path: public/*
 
-      - name: Wait for artifact to be available
-        run: sleep 60  # Wait for 30 seconds before proceeding
+     
 
   deploy:
     name: Publish
@@ -55,13 +54,13 @@ jobs:
     steps:
       # Step 1: Download the artifact from the previous job
       - name: Download public folder
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: tech-blog  # Name of the artifact created in a previous job
 
       # Step 2: Configure AWS credentials using the IAM role
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ secrets.GitHubActionsRole }}  # The ARN of your IAM role, stored as a GitHub secret
           aws-region: eu-west-2  # Region corrected to use the actual value directly
