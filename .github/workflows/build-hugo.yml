@@ -60,7 +60,7 @@ jobs:
 
       # Step 2: Configure AWS credentials using the IAM role
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.GitHubActionsRole }}  # The ARN of your IAM role, stored as a GitHub secret
           aws-region: eu-west-2  # Region corrected to use the actual value directly
