@@ -7,7 +7,7 @@ on:
       - main
 
 env:
-  AWS_REGION: "eu-west-2"  # S3 bucket region
+  AWS_REGION: "eu-west-2"  # s3 bucket region
 
 jobs:
   build:
@@ -54,29 +54,23 @@ jobs:
         with:
           name: tech-blog  # Name of the artifact created in a previous job
 
-      # Step 2: Configure AWS credentials for S3 in the CloudTalents account
-      - name: Configure AWS credentials (S3)
+      # Step 2: Configure AWS credentials using the IAM role
+      - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets.AWS_S3_ROLE_ARN }}  # ARN of the S3 role in CloudTalents
-          aws-region: eu-west-2  # Region of the S3 bucket
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # The ARN of your IAM role, stored as a GitHub secret
+          aws-region: eu-west-2  # Region corrected to use the actual value directly
 
       # Step 3: Sync files from the 'public/' folder to the S3 bucket
       - name: S3 sync
-        run: |
+        run: | 
           aws s3 sync . s3://${{ secrets.BUCKET_NAME }} \
           --delete  
 
-      # Step 4: Configure AWS credentials for CloudFront invalidation in the CloudTalents account
-      - name: Configure AWS credentials (CloudFront)
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          role-to-assume: ${{ secrets.AWS_CLOUDFRONT_ROLE_ARN }}  # ARN of the CloudFrontInvalidationRole
-          aws-region: eu-west-2  # Region for CloudFront is global, but you can leave this as is
-
-      # Step 5: Create a CloudFront invalidation to clear cached files
+      # Step 4: Create a CloudFront invalidation to clear cached files
       - name: Create CloudFront Invalidation
         run: |
           aws cloudfront create-invalidation \
           --distribution-id ${{ secrets.DISTRIBUTION_ID }} \
           --paths "/*"  # Invalidate all cached files to ensure updates are served
+
