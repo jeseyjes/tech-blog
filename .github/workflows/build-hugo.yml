@@ -71,5 +71,5 @@ jobs:
       - name: Create CloudFront Invalidation
         run: |
           aws cloudfront create-invalidation \
-          --distribution-id ${{ secrets.DISTRIBUTION_ID }} \
+          --distribution-id E15GHLUKK0A62F \
           --paths "/*"  # Invalidate all cached files to ensure updates are served
