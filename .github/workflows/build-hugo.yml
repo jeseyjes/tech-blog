@@ -71,5 +71,5 @@ jobs:
       - name: Create CloudFront Invalidation
         run: |
           aws cloudfront create-invalidation \
-          --distribution-id E15GHLUKK0A62F \
+          --distribution-id ${{secrets.distribution_id}} \
           --paths "/*"  
