@@ -58,7 +58,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # The ARN of your IAM role, stored as a GitHub secret
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN1 }}  # The ARN of your IAM role, stored as a GitHub secret
           aws-region: eu-west-2  # Region corrected to use the actual value directly
 
       # Step 3: Sync files from the 'public/' folder to the S3 bucket
