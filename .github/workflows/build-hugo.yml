@@ -1,6 +1,6 @@
 name: Build Hugo Blog
 
-# Run the workflow when a change is merged into the 'main' branch
+# For when a change is merged into a branch
 on:
   push:
     branches:
@@ -14,25 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the repository
+      # Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Install Hugo
+      # Install Hugo
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: 'latest'
           extended: true  # Use extended version if your blog uses SCSS
 
-      # Step 3: Build the Hugo site
+      # Build the Hugo site
       - name: Build the site
         run: hugo
 
       - name: List contents of public folder
         run: ls -l public/
 
-      # Optional: Save the build output (for debugging)
+      # Save the build output (for debugging)
       - name: Upload public folder
         uses: actions/upload-artifact@v4
         with:
@@ -41,8 +41,8 @@ jobs:
 
   deploy:
     name: Publish
-    needs: build  # This job depends on the successful completion of 'build'
-    runs-on: ubuntu-latest  # Specifies the runner for this job
+    needs: build  
+    runs-on: ubuntu-latest  #Specifies the runner for this job
     permissions:
       id-token: write  # Required for OpenID Connect (OIDC) to assume the IAM role
       contents: read   # Grants read access to the repository's contents
@@ -58,8 +58,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  # The ARN of your IAM role, stored as a GitHub secret
-          aws-region: eu-west-2  # Region corrected to use the actual value directly
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}  
+          aws-region: eu-west-2  
 
       # Step 3: Sync files from the 'public/' folder to the S3 bucket
       - name: S3 sync
