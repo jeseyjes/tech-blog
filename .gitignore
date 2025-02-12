@@ -36,3 +36,4 @@ terraform.tfstate
 terraform.tfstate.*
 *.tfstate
 *.tfstate.backup.terraform/
+Access key.txt
