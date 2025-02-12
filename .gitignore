@@ -35,4 +35,4 @@ ehthumbs.db
 terraform.tfstate
 terraform.tfstate.*
 *.tfstate
-*.tfstate.backup
+*.tfstate.backup.terraform/
