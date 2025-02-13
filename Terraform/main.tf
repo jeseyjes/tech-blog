@@ -23,3 +23,21 @@ output "existing_cloudfront_domain" {
   description = "The domain name of the existing CloudFront distribution"
   value       = data.aws_cloudfront_distribution.existing_distribution.domain_name
 }
+
+terraform {
+  cloud {
+    organization = "Techitblog"
+
+    workspaces {
+      name = "tech-blog"
+    }
+  }
+
+  backend "remote" {
+    hostname     = "app.terraform.io"
+    organization = "Techitblog"
+    workspaces {
+      name = "tech-blog"
+    }
+  }
+}
