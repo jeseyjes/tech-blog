@@ -24,7 +24,7 @@ output "existing_cloudfront_domain" {
   value       = data.aws_cloudfront_distribution.existing_distribution.domain_name
 }
 
-terraform {
+Terraform {
   cloud {
     organization = "Techitblog"
 
