@@ -1,7 +1,7 @@
 # Define the AWS provider
 provider "aws" {
-  region = "eu-west-2" # Replace with the region where your resources are located
-}
+  region = "eu-west-2" 
+  }
 
 # Reference the existing S3 bucket using a data source
 data "aws_s3_bucket" "existing_bucket" {
@@ -33,11 +33,5 @@ terraform {
     }
   }
 
-  backend "remote" {
-    hostname     = "app.terraform.io"
-    organization = "Techitblog"
-    workspaces {
-      name = "tech-blog"
-    }
-  }
+  
 }
