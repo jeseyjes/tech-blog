@@ -56,8 +56,6 @@ jobs:
       cf_id: ${{ steps.tf_out.outputs.cfid }}
       domain: ${{ steps.tf_out.outputs.domain }}
 
-# For when a change is merged into a branch
-
   build:
     runs-on: ubuntu-latest
 
