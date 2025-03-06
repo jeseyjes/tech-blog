@@ -1,7 +1,7 @@
 # Define the AWS provider
 provider "aws" {
-  region = "eu-west-2" 
-  }
+  region = "eu-west-2"
+}
 
 # Reference the existing S3 bucket using a data source
 data "aws_s3_bucket" "existing_bucket" {
@@ -14,16 +14,22 @@ data "aws_cloudfront_distribution" "existing_distribution" {
 }
 
 # Output the details of the existing resources for verification
-output "existing_s3_bucket_name" {
+output "s3_bucket" {
   description = "The name of the existing S3 bucket"
   value       = data.aws_s3_bucket.existing_bucket.bucket
 }
 
-output "existing_cloudfront_domain" {
+output "cloudFront_ID" {
+  description = "The ID of the existing CloudFront distribution"
+  value       = data.aws_cloudfront_distribution.existing_distribution.id
+}
+
+output "cloudFront_domain_name" {
   description = "The domain name of the existing CloudFront distribution"
   value       = data.aws_cloudfront_distribution.existing_distribution.domain_name
 }
 
+# Configure Terraform Cloud
 terraform {
   cloud {
     organization = "Techitblog"
@@ -32,6 +38,4 @@ terraform {
       name = "tech-blog"
     }
   }
-
-  
 }
