@@ -1,11 +1,11 @@
 output "s3_bucket" {
   description = "The S3 bucket name for GitHub Actions workflow"
-  value       = aws_s3_bucket.my-blog.id
+  value       = data.aws_s3_bucket.existing_bucket.id
 }
 
 output "s3_bucket_domain_name" {
   description = "The regional domain name of the S3 bucket"
-  value       = aws_s3_bucket.my-blog.bucket_regional_domain_name
+  value       = data.aws_s3_bucket.existing_bucket.bucket_regional_domain_name
 }
 
 output "cloudFront_ID" {

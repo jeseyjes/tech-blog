@@ -1,5 +1,4 @@
-
-#Cloudfront Funtion to Append Index.html to URLs
+# CloudFront Function to Append Index.html to URLs
 resource "aws_cloudfront_function" "append_index_html" {
   name    = "${var.bucket_name}-append-index"
   runtime = "cloudfront-js-2.0"
@@ -20,7 +19,7 @@ resource "aws_cloudfront_origin_access_control" "default" {
 # Define CloudFront Distribution
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name              = aws_s3_bucket.my-blog.bucket_regional_domain_name
+    domain_name              = data.aws_s3_bucket.existing_bucket.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.default.id
     origin_id                = local.s3_origin_id
   }
@@ -28,9 +27,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   comment             = "CloudFront distribution for S3 bucket"
   default_root_object = "index.html"
-
-  # Add custom domain
-  #aliases = ["techitblog.cloudtalents.io"]
 
   custom_error_response {
     error_code            = 403
@@ -57,15 +53,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     cloudfront_default_certificate = true
     ssl_support_method             = "sni-only"
   }
-  #viewer_certificate {
-    #acm_certificate_arn      = "arn:aws:acm:eu-west-2:861276085202:certificate/83321379-93b1-442f-aad8-d49b2c801d4e"
-    #ssl_support_method       = "sni-only"
-    #minimum_protocol_version = "TLSv1.2_2021"
-  #}
 
-  # Default Cache behavior
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"] # Fully valid
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"]
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = local.s3_origin_id
 
@@ -83,7 +73,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
     max_ttl                = 86400
   }
 
-  # Geo-restrictions (optional)
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -93,7 +82,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
 # S3 Bucket Policy to Allow CloudFront Access
 resource "aws_s3_bucket_policy" "CF_S3_Policy" {
-  bucket = aws_s3_bucket.my-blog.id
+  bucket = data.aws_s3_bucket.existing_bucket.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -104,7 +93,7 @@ resource "aws_s3_bucket_policy" "CF_S3_Policy" {
           Service = "cloudfront.amazonaws.com"
         }
         Action   = "s3:GetObject"
-        Resource = "arn:aws:s3:::${aws_s3_bucket.my-blog.bucket}/*"
+        Resource = "arn:aws:s3:::${data.aws_s3_bucket.existing_bucket.bucket}/*"
         Condition = {
           StringEquals = {
             "AWS:SourceArn" = "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.s3_distribution.id}"
