@@ -28,6 +28,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   comment             = "CloudFront distribution for S3 bucket"
   default_root_object = "index.html"
 
+  #Custom domain
+  aliases = [jeseyjess.cloudtalents.io]
+
   custom_error_response {
     error_code            = 403
     response_page_path    = "/404.html"
