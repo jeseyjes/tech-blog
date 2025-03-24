@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 #custom domain
 
-aliases = [jeseyjess.cloudtalents.io]
+aliases = ["jeseyjess.cloudtalents.io"]
 
   custom_error_response {
     error_code            = 403
