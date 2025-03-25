@@ -29,7 +29,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 
   #Custom domain
-  aliases = [jeseyjess.cloudtalents.io]
+  aliases = ["jeseyjess.cloudtalents.io"]
 
   custom_error_response {
     error_code            = 403
@@ -53,9 +53,11 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
-    ssl_support_method             = "sni-only"
+    acm_certificate_arn      = "arn:aws:acm:us-east-1:861276085202:certificate/7e28db4d-bf8b-4f2f-8495-2314b9eeb5e0"
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
+
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "DELETE"]
