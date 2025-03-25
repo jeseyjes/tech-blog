@@ -29,8 +29,6 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
 #custom domain
 
-aliases = ["jeseyjess.cloudtalents.io"]
-
   #Custom domain
   aliases = ["jeseyjess.cloudtalents.io"]
 
