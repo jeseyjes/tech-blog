@@ -27,6 +27,9 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   is_ipv6_enabled     = true
   comment             = "CloudFront distribution for S3 bucket"
   default_root_object = "index.html"
+#custom domain
+
+aliases = ["jeseyjess.cloudtalents.io"]
 
   #Custom domain
   aliases = ["jeseyjess.cloudtalents.io"]
